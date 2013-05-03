@@ -1,6 +1,9 @@
 body {
-	background: url('../img/bg2.jpg')repeat;
+	background: url('../img/bg.jpg')repeat;
 }
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0 }
+#map-canvas { height: 100% }
 
 .container {
 	max-width: 940px;
