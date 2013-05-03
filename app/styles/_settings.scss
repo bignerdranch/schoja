@@ -1,0 +1,62 @@
+//
+// Variables
+// --------------------------------------------------
+
+$color-1: #d4c9c5;  //light brown
+$color-2: #b3a195;  //mid brown
+$color-3: #423d3b;  //dark brown
+$color-4: #707871;  //green
+
+
+
+//
+// Mixins
+// --------------------------------------------------
+
+@mixin breakpoint($point) {
+  @if $point == tablet {
+    @media (max-width: 768px) { @content; }
+  }
+  @else if $point == large-phone {
+    @media (max-width: 640px) { @content; }
+  }
+  @else if $point == small-phone {
+    @media (max-width: 400px)  { @content; }
+  }
+}
+
+
+
+//
+// Utilities
+// --------------------------------------------------
+
+@media (max-width: 768px) {
+
+  .break-point-768px-show {
+    display: inherit; 
+  }
+  .break-point-768px-hide {
+    display: none; 
+  }
+}
+
+@media (max-width: 640px) {
+
+  .break-point-640px-show {
+    display: inherit; 
+  }
+  .break-point-640px-hide {
+    display: none; 
+  }
+}
+
+@media (max-width: 400px) {
+
+  .break-point-400px-show {
+    display: inherit; 
+  }
+  .break-point-400px-hide {
+    display: none; 
+  }
+}

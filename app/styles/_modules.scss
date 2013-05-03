@@ -1,0 +1,58 @@
+body {
+	background: url('../img/bg2.jpg')repeat;
+}
+
+.container {
+	max-width: 940px;
+	min-width: 300px;
+	width: 90%; 
+}
+
+header {
+	// background: $color-3;
+	// border: 5px solid $color-3;
+	// padding: 25px;
+	
+	ul {
+		// margin: 0 auto;
+		// width: 552px;
+		// @include breakpoint(tablet) 	 {float: none; width: 226px; border: 1px solid $color-1;}
+  // 		@include breakpoint(large-phone) {float: none; width: 226px; border: 1px solid $color-1;}
+  // 		@include breakpoint(small-phone) {float: none; width: 226px; border: 1px solid $color-1;}
+	}
+
+	li {
+		// font-size: 25px;
+		// float: left;
+		// list-style: none;
+		// padding: 10px;
+		// @include breakpoint(tablet) 	 {float: none; width: 100%; border: 1px solid $color-1;}
+  // 		@include breakpoint(large-phone) {float: none; width: 100%; border: 1px solid $color-1;}
+  // 		@include breakpoint(small-phone) {float: none; width: 100%; border: 1px solid $color-1;}
+	}
+	a {
+		color: #fff;
+		&:hover,
+		&:visited {
+			color: #fff;
+		}
+	} 
+}
+
+.hero-unit {
+	background: #fff;
+	border: 5px solid $color-3;
+    margin: 50px auto 0;
+    padding: 5%;
+    width: 90%;
+	h1 {
+		color: $color-3; 
+	}
+}
+
+
+@media(max-width: 320px){
+  body {
+    display: none;
+  }
+}
