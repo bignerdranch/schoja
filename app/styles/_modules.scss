@@ -1,5 +1,6 @@
 body {
 	background: url('../img/bg2.jpg')repeat;
+	position: relative;
 }
 
 .container {
@@ -46,6 +47,51 @@ body {
 	}
 }
 
+.map-canvas {
+	height: 400px;
+	margin: 20px auto;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	background: #1B1B1B;
+	height: 50px;
+	padding: 25px 0;
+	width: 100%;
+	@include breakpoint(large-phone) {
+		height: 20px;
+		padding-bottom: 150px;
+		text-align: center;
+		margin: 0 auto;
+	}
+	.vanity-text-container {
+		position: relative;
+		width: auto;
+		.vanity-text {
+			position: absolute;
+			left: 50%;
+			margin-left: -217px; 
+			@include breakpoint(large-phone) {
+				margin-left: -77.5px;
+			}
+		}
+		h6 {
+			color: #fff;
+			float: left;
+			font-size: 14px;
+			padding: 0 10px;
+			@include breakpoint(large-phone) {
+				float: none;
+				padding: 5px;
+			}
+		}
+	} 
+	.vanity-text-highlight {
+		font-size: 40px;
+		color: tomato; 
+	}
+}
 
 @media(max-width: 320px){
   body {
