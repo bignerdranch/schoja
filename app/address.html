@@ -10,6 +10,7 @@
     <script src="scripts/vendor/jquery-1.9.1.min.js"></script>
     <script src="scripts/geo.js"></script>
     <script src="scripts/latlong.js"></script>
+    <script src="scripts/vendor/countdown.js" type="text/javascript"></script>
 
     <style>
       input {
@@ -49,6 +50,12 @@
       padding: 5px;
       border: 1px solid #999;
     }
+    
+    html body #stage_jbeeb_3{
+    position: relative;
+    top:50%;
+    left: 50%;
+}
 
     </style>
       
@@ -203,10 +210,12 @@
             $('#summary').html('<strong>You must login to access data.</strong>');
         }
 
+        var alarmDate;
+
         function startTrip() {
             //Save Destination
 
-            var alarmDate = $('#timer').val();
+            alarmDate = $('#timer').val();
 
             var hrs = parseInt(alarmDate.split(':')[0],10);
             hrs = hrs*(60*60*1000);
@@ -253,8 +262,19 @@ alert('Uh Oh! Better Schoja!');
                 // maybe update a time display here?
                 window.setTimeout(arguments.callee,1000,targetDate); // tick every second
             })(alarmDate); 
+debugger;            
+console.log(alarmDate);
+            return alarmDate;
 
         }
+
+        function getAlarmDate () {
+debugger;            
+            var getAlarmValue = (startTrip()- (new Date()))/1000;
+            console.log(getAlarmValue);
+            return Math.floor(getAlarmValue);
+
+        };
 
         // On page init, fetch the data and set up event handlers
         $(function () {
@@ -262,8 +282,9 @@ alert('Uh Oh! Better Schoja!');
             $('#summary').html('<strong>You must login to access data.</strong>');
             $("#logged-out button").click(logIn);
             $("#logged-in button").click(logOut);
-            $("#start-trip").click(startTrip);
+            // $("#start-trip").click(startTrip);
         });
+
     </script>
 
   </head>
@@ -332,10 +353,26 @@ alert('Uh Oh! Better Schoja!');
             <input id="timer" type="time" value="1985-04-12T23:20:50.52jason"/>
         </div>
 
+        <div id="stage_jbeeb_3">
+        <script type="application/javascript">
+
+        var myCountdown1 = function () { 
+                                        new Countdown({
+                                            time: getAlarmDate(),
+                                            width:300, 
+                                            height:60,  
+                                            rangeHi:"hour",
+                                            style:"flip"    // <- no comma on last item!
+                                        });
+                                    };
+                                            // 
+        </script>      
+        </div>  
+
     </div>
     
     <div class="container dim">
-        <div><button id="start-trip" class="btn">Start</button></div>
+        <div><button id="start-trip" class="btn" onclick="myCountdown1()">Start</button></div>
     </div>
 
     <footer>
