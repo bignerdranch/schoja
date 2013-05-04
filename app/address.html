@@ -4,10 +4,12 @@
     <title>Make A Trip</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="css/main.css">
     <script src="https://schoja.azure-mobile.net/client/MobileServices.Web-1.0.0.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places"></script>
     <script src="scripts/vendor/jquery-1.9.1.min.js"></script>
+    <script src="scripts/geo.js"></script>
+    <script src="scripts/latlong.js"></script>
 
     <style>
       input {
@@ -55,6 +57,7 @@
             "https://schoja.azure-mobile.net/",
             "AUzaWFCJaiwjlilfpqgKCjuyWhQOyl56"
         );
+        var currentPos;
         var place;
         var marker;
         var map;
@@ -70,14 +73,14 @@
             // Try HTML5 geolocation
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    var pos = new google.maps.LatLng(position.coords.latitude,
+                    currentPos = new google.maps.LatLng(position.coords.latitude,
                                                position.coords.longitude);
                     marker = new google.maps.Marker({
                         map: map,
                         animation: google.maps.Animation.DROP,
-                        position: pos
+                        position: currentPos
                     });
-                    map.setCenter(pos);
+                    map.setCenter(currentPos);
                 }, function () {
                     handleNoGeolocation(true);
                 });
@@ -184,12 +187,22 @@
             mins = mins*(60*1000);
 
             alarmDate = hrs + mins;
-            alarmDate = new Date(alarmDate) + new Date().getTime();
+            alarmDate = new Date(alarmDate) + (new Date()).getTime();
 
 
 
             (function(targetDate) {
-                if (targetDate.getTime() <= new Date().getTime()) {
+                if ((new Date(targetDate)).getTime() <= (new Date()).getTime()) {
+                    
+                var p1 = new LatLon(Geo.parseDMS(currentPos.lat()), Geo.parseDMS(currentPos.lng()));
+                var p2 = new LatLon(Geo.parseDMS(place.geometry.location.lat()), Geo.parseDMS(place.geometry.location.lng()));
+                var dist = p1.distanceTo(p2, 3);
+
+                if(dist > 1.5)
+                {
+                    var alertTable = client.getTable('Alert');
+                    alertTable.insert({ userId: 2 });
+                }
 debugger;                    
 console.log('Uh better Schoja!');                    
                     return;
@@ -201,7 +214,7 @@ console.log('Uh better Schoja!');
 
 
             var destinationTable = client.getTable('Destination');
-            destinationTable.insert({ name: place.name, longitude: place.geometry.location.lng(), latitude: place.geometry.location.lat(), userid: 2 });
+            destinationTable.insert({ name: place.name, longitude: place.geometry.location.lng(), latitude: place.geometry.location.lat(), userid: 2, lastTraveled: alarmDate });
             alert("Starting Trip to " + place.name);                
         }
 
@@ -270,15 +283,13 @@ console.log('Uh better Schoja!');
     <div id="map-canvas" class="container map-canvas"></div>
     
     <div class="container">
-        <div><h5>Enter expected return time:</h5> <input type="time" value="1985-04-12T23:20:50.52jason"/></div>
+        <div><h5>Enter expected return time:</h5> <input id="timer" type="time" value="1985-04-12T23:20:50.52jason"/></div>
     </div>
     
     <div class="container">
         <div><button id="start-trip" class="btn">Start</button></div>
     </div>
 
-        <!-- build:js scripts/main.js -->
-    <script data-main="scripts/main" src="components/requirejs/require.js"></script>
     <!-- endbuild -->
     <footer>
         <div class="vanity-text-container clearfix">
