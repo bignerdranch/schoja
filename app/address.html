@@ -112,7 +112,7 @@
             homemarker.setTitle("You are here!")
             homemarker.setPosition(new google.maps.LatLng(lat, long));
             homemarker.setVisible(true);
-            infowindow.setContent('<div><strong>You are here!</strong><br>');
+            // infowindow.setContent('<div><strong>You are here!</strong><br>');
             infowindow.open(map, homemarker);
 
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
