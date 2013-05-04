@@ -194,35 +194,9 @@
 
         function startTrip() {
             //Save Destination
- 
-
-            var alarmDate = $('#timer').val();
-
-            var hrs = parseInt(alarmDate.split(':')[0],10);
-            hrs = hrs*(60*60*1000);
-            var mins = parseInt(alarmDate.split(':')[1],10);
-            mins = mins*(60*1000);
-
-            alarmDate = hrs + mins;
-            alarmDate = new Date(alarmDate) + new Date().getTime();
-
-
-
-            (function(targetDate) {
-                if (targetDate.getTime() <= new Date().getTime()) {
-debugger;                    
-console.log('Uh better Schoja!');                    
-                    return;
-                }
-
-                // maybe update a time display here?
-                window.setTimeout(arguments.callee,1000,targetDate); // tick every second
-            })(alarmDate); 
-
-
             var destinationTable = client.getTable('Destination');
-            destinationTable.insert({ name: place.name, longitude: place.geometry.location.lng(), latitude: place.geometry.location.lat(), userid: 2 });
-            alert("Starting Trip to " + place.name);                
+            destinationTable.insert({ name: place.name, longitude: place.geometry.location.lng(), latitude: place.geometry.location.lat() });
+            alert("Starting Trip to " + place.name);
         }
 
         // On page init, fetch the data and set up event handlers
@@ -232,7 +206,6 @@ console.log('Uh better Schoja!');
             $("#logged-out button").click(logIn);
             $("#logged-in button").click(logOut);
             $("#start-trip").click(startTrip);
-
         });
     </script>
 
@@ -251,17 +224,17 @@ console.log('Uh better Schoja!');
                     </a>
                      
                     <!-- Be sure to leave the brand out there if you want it shown -->
-                    <a class="brand" href="#">Schoja</a>
+                    <a class="brand schoja" href="#">Schoja</a>
                      
                     <!-- Everything you want hidden at 940px or less, place within here -->
                     <div class="nav-collapse collapse">
                         <!-- .nav, .navbar-search, .navbar-form, etc -->
                         <ul class="nav">
-                            <li><a href="">Take a Trip</a></li>
+                            <li><a href="#" class="schoja">Take a Trip</a></li>
                                         
-                            <li><a href="">Profile</a></li>
+                            <li><a href="#" class="toldya">Profile</a></li>
                                         
-                            <li><a href="">Sign Out</a></li>
+                            <li><a href="#" class="toldya">Sign Out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -269,7 +242,13 @@ console.log('Uh better Schoja!');
         </div>      
     </header>
     
-    <div class="container">
+    <div class="ben_affleck">
+        <div class="ben-affleck-container hide">
+            <img src="img/told_ya.png" alt="Our Hero, Ben Affleck">
+        </div>
+    </div>
+    
+    <div class="container dim">
         <input id="searchTextField" type="text" size="50">
     </div>
 
@@ -287,16 +266,19 @@ console.log('Uh better Schoja!');
         </div>
     </div> -->
     
-    <div id="map-canvas" class="container map-canvas"></div>
+    <div id="map-canvas" class="container map-canvas dim"></div>
     
-    <div class="container">
-        <div><h5>Enter expected return time:</h5> <input type="time"/></div>
+    <div class="container dim">
+        <div>
+            <h5>Enter expected return time:</h5>
+            <h6><em>Ex. 12 : 30 PM<em></h6>
+            <input type="time"/>
+        </div>
     </div>
     
-    <div class="container">
+    <div class="container dim">
         <div><button id="start-trip" class="btn">Start</button></div>
     </div>
-
         <!-- build:js scripts/main.js -->
     <script data-main="scripts/main" src="components/requirejs/require.js"></script>
     <!-- endbuild -->
