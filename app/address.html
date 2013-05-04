@@ -187,7 +187,14 @@
             mins = mins*(60*1000);
 
             alarmDate = hrs + mins;
-            alarmDate = new Date(alarmDate) + (new Date()).getTime();
+            // alarmDate = new Date(alarmDate);
+
+            var day = (24 * 60 * 60 * 1000);
+            var epochDay = (new Date()).getTime();
+            var dayModulus = epochDay % day;
+            var minAdjust = (60*1000) * ((new Date()).getTimezoneOffset());
+            alarmDate += ( epochDay - dayModulus + minAdjust);
+
 
             var destinationTable = client.getTable('Destination');
             destinationTable.insert({ name: place.name, 
@@ -211,8 +218,8 @@
                     var alertTable = client.getTable('Alert');
                     alertTable.insert({ userId: 2 });
                 }
-debugger;                    
-console.log('Uh better Schoja!');                    
+debugger;                  
+alert('Uh Oh! Better Schoja!');                    
                     return;
                 }
 
