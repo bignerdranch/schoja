@@ -4,10 +4,12 @@
     <title>Make A Trip</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="css/main.css">
     <script src="https://schoja.azure-mobile.net/client/MobileServices.Web-1.0.0.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places"></script>
     <script src="scripts/vendor/jquery-1.9.1.min.js"></script>
+    <script src="scripts/geo.js"></script>
+    <script src="scripts/latlong.js"></script>
 
     <style>
       input {
@@ -55,6 +57,7 @@
             "https://schoja.azure-mobile.net/",
             "AUzaWFCJaiwjlilfpqgKCjuyWhQOyl56"
         );
+        var currentPos;
         var place;
 
         function initialize() {
@@ -70,8 +73,16 @@
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    map.SetCenter(new google.maps.LatLng(position.coords.latitude,
-                                               position.coords.longitude));
+
+                    currentPos = new google.maps.LatLng(position.coords.latitude,
+                                               position.coords.longitude);
+                    marker = new google.maps.Marker({
+                        map: map,
+                        animation: google.maps.Animation.DROP,
+                        position: currentPos
+                    });
+                    map.setCenter(currentPos);
+
                 }, function () {
                     alert('Error');
                 });
@@ -194,9 +205,45 @@
 
         function startTrip() {
             //Save Destination
+
+            var alarmDate = $('#timer').val();
+
+            var hrs = parseInt(alarmDate.split(':')[0],10);
+            hrs = hrs*(60*60*1000);
+            var mins = parseInt(alarmDate.split(':')[1],10);
+            mins = mins*(60*1000);
+
+            alarmDate = hrs + mins;
+            alarmDate = new Date(alarmDate) + (new Date()).getTime();
+
+
+
+            (function(targetDate) {
+                if ((new Date(targetDate)).getTime() <= (new Date()).getTime()) {
+                    
+                var p1 = new LatLon(Geo.parseDMS(currentPos.lat()), Geo.parseDMS(currentPos.lng()));
+                var p2 = new LatLon(Geo.parseDMS(place.geometry.location.lat()), Geo.parseDMS(place.geometry.location.lng()));
+                var dist = p1.distanceTo(p2, 3);
+
+                if(dist > 1.5)
+                {
+                    var alertTable = client.getTable('Alert');
+                    alertTable.insert({ userId: 2 });
+                }
+debugger;                    
+console.log('Uh better Schoja!');                    
+                    return;
+                }
+
+                // maybe update a time display here?
+                window.setTimeout(arguments.callee,1000,targetDate); // tick every second
+            })(alarmDate); 
+
+
             var destinationTable = client.getTable('Destination');
-            destinationTable.insert({ name: place.name, longitude: place.geometry.location.lng(), latitude: place.geometry.location.lat() });
-            alert("Starting Trip to " + place.name);
+            destinationTable.insert({ name: place.name, longitude: place.geometry.location.lng(), latitude: place.geometry.location.lat(), userid: 2, lastTraveled: alarmDate });
+            alert("Starting Trip to " + place.name);                
+
         }
 
         // On page init, fetch the data and set up event handlers
@@ -271,17 +318,16 @@
     <div class="container dim">
         <div>
             <h5>Enter expected return time:</h5>
-            <h6><em>Ex. 12 : 30 PM<em></h6>
-            <input type="time"/>
+            <h6><em>Ex. 12 : 30 PM</em></h6>
+            <input id="timer" type="time" value="1985-04-12T23:20:50.52jason"/>
         </div>
+
     </div>
     
     <div class="container dim">
         <div><button id="start-trip" class="btn">Start</button></div>
     </div>
-        <!-- build:js scripts/main.js -->
-    <script data-main="scripts/main" src="components/requirejs/require.js"></script>
-    <!-- endbuild -->
+
     <footer>
         <div class="vanity-text-container clearfix">
             <div class="vanity-text">
@@ -291,5 +337,9 @@
             </div>
         </div>
     </footer>      
+    <!-- build:js scripts/main.js -->
+    <script data-main="scripts/main" src="components/requirejs/require.js"></script>
+
+    <!-- endbuild -->
     </body>
 </html>

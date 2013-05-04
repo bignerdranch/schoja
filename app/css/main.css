@@ -7169,3 +7169,13 @@ footer .vanity-text-highlight {
     display: none;
   }
 }
+
+
+.ben-affleck-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -253.5px;
+  margin-left: -190px;
+  z-index: 9999;
+}
