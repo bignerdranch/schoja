@@ -39,8 +39,12 @@ body {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin-top: -253.5px;
-	margin-left: -190px;
+	// margin-top: -253.5px;
+	// margin-left: -190px;
+	margin-left: -150px;
+	margin-top: -200px;
+	height: 400px;
+	width: 300px;
 	z-index: 9999;
 }
 
@@ -58,6 +62,7 @@ body {
 .map-canvas {
 	height: 400px;
 	margin: 20px auto;
+	
 }
 
 footer {
@@ -73,6 +78,7 @@ footer {
 		padding-top: 0;
 		text-align: center;
 		margin: 0 auto;
+		display: none;
 	}
 	.vanity-text-container {
 		position: relative;

@@ -7174,8 +7174,24 @@ footer .vanity-text-highlight {
   z-index: 9999;
 }
 
+/* @media (max-width: 640px) {
+  .ben-affleck-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    
+    margin-left: -125px;
+    height: 333px;
+    width: 250px;
+    z-index: 9999;
+  }
+} */
+
 .main-content-container {
   min-height: 640px; 
 }
 
 
+.test {
+  margin: 100px; 
+}
