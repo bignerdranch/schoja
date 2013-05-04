@@ -7121,7 +7121,8 @@ footer {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/scottimarkley\/Projects\/schoja\/app\/styles\/_modules\.scss}line{font-family:\0000355}}
   footer {
     height: 20px;
-    padding-bottom: 150px;
+    padding-bottom: 130px;
+    padding-top: 0;
     text-align: center;
     margin: 0 auto;
   }
@@ -7163,13 +7164,6 @@ footer .vanity-text-highlight {
   color: tomato;
 }
 
-@media (max-width: 320px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/scottimarkley\/Projects\/schoja\/app\/styles\/_modules\.scss}line{font-family:\0000397}}
-  body {
-    display: none;
-  }
-}
-
 
 .ben-affleck-container {
   position: absolute;
@@ -7179,3 +7173,9 @@ footer .vanity-text-highlight {
   margin-left: -190px;
   z-index: 9999;
 }
+
+.main-content-container {
+  min-height: 640px; 
+}
+
+

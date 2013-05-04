@@ -3,6 +3,7 @@
   <head>
     <title>Make A Trip</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/main.css">
     <script src="https://schoja.azure-mobile.net/client/MobileServices.Web-1.0.0.min.js"></script>
@@ -292,43 +293,46 @@ console.log('Uh better Schoja!');
         </div>      
     </header>
     
-    <div class="ben_affleck">
-        <div class="ben-affleck-container hide">
-            <img src="img/told_ya.png" alt="Our Hero, Ben Affleck">
+    <div class="main-content-container">
+        <div class="ben_affleck">
+            <div class="ben-affleck-container hide">
+                <img src="img/told_ya.png" alt="Our Hero, Ben Affleck">
+            </div>
         </div>
-    </div>
-    
-    <div class="container dim">
-        <input id="searchTextField" type="text" size="50">
-    </div>
-
-    
-    <!-- <div class="container">
-        <div id="logged-in">
-            You are logged in as </br><span id="login-name"></span>.
-            <button id="log-out" class="btn">Log out</button>
-        </div>
-    </div>
-    <div class="container">
-        <div id="logged-out">
-               You are not logged in.
-            <button class="btn">Log in</button>
-        </div>
-    </div> -->
-    
-    <div id="map-canvas" class="container map-canvas dim"></div>
-    
-    <div class="container dim">
-        <div>
-            <h5>Enter expected return time:</h5>
-            <h6><em>Ex. 12 : 30 PM</em></h6>
-            <input id="timer" type="time" value="1985-04-12T23:20:50.52jason"/>
+        
+        <div class="container dim">
+            <input id="searchTextField" type="text" size="50">
         </div>
 
-    </div>
+        
+        <!-- <div class="container">
+            <div id="logged-in">
+                You are logged in as </br><span id="login-name"></span>.
+                <button id="log-out" class="btn">Log out</button>
+            </div>
+        </div>
+        <div class="container">
+            <div id="logged-out">
+                   You are not logged in.
+                <button class="btn">Log in</button>
+            </div>
+        </div> -->
+        
+        <div id="map-canvas" class="container map-canvas dim"></div>
+        
+        <div class="container dim">
+            <div>
+                <h5>Enter expected return time:</h5>
+                <h6><em>Ex. 12 : 30 PM</em></h6>
+                <input id="timer" type="time" value="1985-04-12T23:20:50.52jason"/>
+            </div>
+
+        </div>
+        
+        <div class="container dim">
+            <div><button id="start-trip" class="btn">Start</button></div>
+        </div>
     
-    <div class="container dim">
-        <div><button id="start-trip" class="btn">Start</button></div>
     </div>
 
     <footer>
