@@ -216,8 +216,15 @@
             alarmDate = hrs + mins;
             alarmDate = new Date(alarmDate) + (new Date()).getTime();
 
+            var destinationTable = client.getTable('Destination');
+            destinationTable.insert({ name: place.name, 
+                                      longitude: place.geometry.location.lng(), 
+                                      latitude: place.geometry.location.lat(), 
+                                      userId: 2, 
+                                      lastTraveled: new Date(alarmDate) });
+            alert("Starting Trip to " + place.name);     
 
-
+            //For some reason targetDate have the value of earliest UTC time 01-01-1970
             (function(targetDate) {
                 if ((new Date(targetDate)).getTime() <= (new Date()).getTime()) {
                     
@@ -227,6 +234,7 @@
 
                 if(dist > 1.5)
                 {
+                    //Should we fire the alert here?
                     var alertTable = client.getTable('Alert');
                     alertTable.insert({ userId: 2 });
                 }
@@ -238,11 +246,6 @@ console.log('Uh better Schoja!');
                 // maybe update a time display here?
                 window.setTimeout(arguments.callee,1000,targetDate); // tick every second
             })(alarmDate); 
-
-
-            var destinationTable = client.getTable('Destination');
-            destinationTable.insert({ name: place.name, longitude: place.geometry.location.lng(), latitude: place.geometry.location.lat(), userid: 2, lastTraveled: alarmDate });
-            alert("Starting Trip to " + place.name);                
 
         }
 
